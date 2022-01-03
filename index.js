@@ -20,6 +20,8 @@ const questions = [{
     message: 'What is the location of the launch?'
 }];
 
+//write code that sorts through the data and displays the requested information
+
 async function retrieveURLParams(answers) {
     try {
         await fetch(`${launchpath}?window_start__gt=${answers.start_date}T00%3A00%3A00Z&window_end__gt=${answers.end_date}T00%3A00%3A00Z&is_crewed=true&search=${answers.location}`,
