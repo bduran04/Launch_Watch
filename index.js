@@ -20,8 +20,6 @@ const questions = [{
     message: 'What is the location of the launch?'
 }];
 
-//write code that sorts through the data and displays the requested information
-
 async function retrieveURLParams(answers) {
     try {
         await fetch(`${launchpath}?window_start__gt=${answers.start_date}T00%3A00%3A00Z&window_end__gt=${answers.end_date}T00%3A00%3A00Z&is_crewed=true&search=${answers.location}`,
@@ -31,7 +29,19 @@ async function retrieveURLParams(answers) {
                     'Content-Type': 'application/json',
                 }
             }).then((response) => response.json())
-            .then(data => console.log(data))
+//refactor this code to ensure that the data is being processed correctly. So far the error that populates is that data.map is not a function. 
+            .then(data => {
+                const results = data.map(result => {
+                    return {
+                        name: result.name,
+                        window_start: result.window_start,
+                        window_end: result.window_end,
+                        description: result.description,
+                        vidURLs: result.vidURLs
+                    }
+                })
+            })
+                console.log(results);
 
     } catch (error) {
         console.error(error);
