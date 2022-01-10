@@ -28,10 +28,12 @@ async function retrieveURLParams(answers) {
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            }).then((response) => response.json())
+            }).then(response => response.json())
 //refactor this code to ensure that the data is being processed correctly. So far the error that populates is that data.map is not a function. 
-            .then(data => {
-                const results = data.map(result => {
+            .then((data) => {
+                let results = data;
+
+                results.map(result => {
                     return {
                         name: result.name,
                         window_start: result.window_start,
@@ -40,8 +42,8 @@ async function retrieveURLParams(answers) {
                         vidURLs: result.vidURLs
                     }
                 })
-            })
                 console.log(results);
+            })
 
     } catch (error) {
         console.error(error);
